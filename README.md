@@ -17,6 +17,11 @@ Instructions are fetched from memory synchronously, decoded and executed to :
 - Change the content of memory
 - Retrieve data and instructions from memory
 - Control the movement of data on the system busses
-
+## Control Unit
+Functions of the control unit:
+- Determine when to load registers
+- Select the path of data through the multiplexers
+- Determine when data should be written to memory
+- Control the three-state busses in the architecture.
 
 
