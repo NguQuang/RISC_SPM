@@ -6,8 +6,6 @@ RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of t
 - Controller
 - Memory
 
-![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
-
 Program instructions and data are stored in memory
 
 Instructions are fetched from memory synchronously, decoded and executed to : 
@@ -17,6 +15,10 @@ Instructions are fetched from memory synchronously, decoded and executed to :
 - Change the content of memory
 - Retrieve data and instructions from memory
 - Control the movement of data on the system busses
+
+![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
+
+
 ## Control Unit
 Functions of the control unit:
 - Determine when to load registers
@@ -24,4 +26,5 @@ Functions of the control unit:
 - Determine when data should be written to memory
 - Control the three-state busses in the architecture.
 
+![Control Signals](https://github.com/canh25xp/RISC-SPM/blob/main/assets/Control_Signals.png)
 
