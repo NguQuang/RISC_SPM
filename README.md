@@ -6,9 +6,9 @@ application. Once an architecture has been selected, a circuit that has sufficie
 that can be used by a synthesis tool.
 
 RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of three functional units :
-- Processor
-- Controller
-- Memory
+1. Processing Unit ( Processor )
+2. Controll Unit ( Controller )
+3. Memory Unit ( RAM )
 
 Program instructions and data are stored in memory
 
@@ -30,13 +30,46 @@ The Overall Architecture of a simple RISC-SPM is shown below
 
 ![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
 
+## Processing Unit
+The processor includes registers, datapaths, control lines, and an ALU capable of performing arithmetic and logic operations on its operands, subject to the opcode held in the instruction register. A multiplexer, Mux_1, determines the source of data that is bound for Bus_1, and a second mux, Mux_2, determines the source of data bound for Bus_2. The input datapaths to Mux_1 are from four internal general-purpose registers (R0, R1, R2, R3), and from the PC. The contents of Bus_1 can be steered to the ALU, to memory, or to Bus_2 (via Mux_2). The input datapaths to Mux_2 are from the ALU, Mux_1, and the memory unit. Thus, an instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
+
+## Arithmetic Logic Unit
+For the purposes of this example, the ALU has two operand datapaths, data_1 and data_2, and its instruction set is limited to only 4 instructions, that is :
+- ADD : Adds the datapaths to form data_1 + data_2
+- SUB : Subtracts the datapaths to form data_1 - data_2
+- AND : Takes the bitwise-and of the datapaths. data_1 & data_2
+- NOT : Takes the bitwise Boolean complement of data_1
 
 ## Control Unit
-Functions of the control unit:
-- Determine when to load registers
-- Select the path of data through the multiplexers
-- Determine when data should be written to memory
-- Control the three-state busses in the architecture.
+### Functions of the control unit:
+1. Determine when to load registers
+2. Select the path of data through the multiplexers
+3. Determine when data should be written to memory
+4. Control the three-state busses in the architecture.
 
-![Control Signals](https://github.com/canh25xp/RISC-SPM/blob/main/assets/Control_Signals.png)
+### Control Signals :
+
+- Load_Add_R : Loads the address register
+- Load_PC :  Loads Bus_2to the program counter
+- Load_IR : Loads Bus_2 to the instruction register
+- Inc_PC : Increments the program counter
+- Sel_Bus_1_Mux : Selects among the Program_Counter, R0, R1, R2, and R3 to drive Bus_1
+- Sel_Bus_2_Mux : Selects among Alu_out, Bus_1, and memory to drive Bus_2
+- Load_R0 : Loads general purpose register R0
+- Load_R1 : Loads general purpose register R1
+- Load_R2 : Loads general purpose register R2
+- Load_R3 : Loads general purpose register R3
+- Load_Reg_Y : Loads Bus_2 to the register Reg_Y
+- Load_Reg_Z : Stores output of ALU in register Reg_Z
+- write : Loads Bus_1 into the SRAM memory
+
+### Instruction Set
+...
+### Controller States
+...
+### Controller ASM
+...
+
+## Memory Unit
+For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM 
 
