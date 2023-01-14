@@ -7,7 +7,7 @@ module RISC_SPM(input clk,rst);
     wire Load_Add_R, Load_Reg_Y, Load_Reg_Z;
     wire write;
 
-        Control_Unit Controller(
+    Control_Unit Controller(
         Load_R0, Load_R1, Load_R2, Load_R3, Load_PC, Inc_PC, Load_IR, Load_Add_R, Load_Reg_Y, Load_Reg_Z, write,
         Sel_Bus_1_Mux,
         Sel_Bus_2_Mux,
