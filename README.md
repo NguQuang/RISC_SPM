@@ -1,6 +1,6 @@
 # RISC-SPM
 >A final project of the course "Digital Design using VHDL"
-## Introduction
+## Overview
 RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of three functional units :
 - Processor
 - Controller
@@ -15,6 +15,14 @@ Instructions are fetched from memory synchronously, decoded and executed to :
 - Change the content of memory
 - Retrieve data and instructions from memory
 - Control the movement of data on the system busses
+
+The Program Counter (PC) contains the address of the next instruction to be executed
+
+The Instruction Register (IR) contains the instruction that currently being executed
+
+The address register ()
+
+The Overall Architecture of a simple RISC-SPM is shown below
 
 ![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
 
