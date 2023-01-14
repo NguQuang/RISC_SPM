@@ -5,7 +5,9 @@ RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of t
 - Processor
 - Controller
 - Memory
-/assets/RISC-SPM.png
+
+![RISC image](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
+
 
 
 
