@@ -1,6 +1,6 @@
 # RISC-SPM
 >A final project of the course "Digital Design using VHDL"
-## Overview
+## **Overview**
 Reduced instruction-set computers (RISC) are designed to have a small set of instructions that execute in short clock cycles, with a small number of cycles per instruction. RISC machines are optimized to achieve efficient pipelining of their instruction streams. The machine also serves as a starting point for developing architectural variants and a more robust instruction set. Designers make high-level tradeoffs in selecting an architecture that serves an
 application. Once an architecture has been selected, a circuit that has sufficient performance (speed) must be synthesized. Hardware description languages (HDLs) play a key role in this process by modeling the system and serving as a descriptive medium
 that can be used by a synthesis tool.
@@ -30,7 +30,7 @@ The Overall Architecture of a simple RISC-SPM is shown below
 
 ![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
 
-## Processing Unit
+## **Processing Unit**
 The processor includes *registers*, *buses*, *control lines*, and an *ALU* capable of performing arithmetic and logic operations on its operands depends on the opcode held in the instruction register.
 
 There are 2 multiplexers in the Processing Unit : 
@@ -43,14 +43,16 @@ There are 2 multiplexers in the Processing Unit :
 
 An instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
 
-## Arithmetic Logic Unit
+## **Arithmetic Logic Unit**
 For the purposes of this example, the ALU has two operand datapaths, data_1 and data_2, and its instruction set is limited to only 4 instructions, that is :
-- ADD : Adds the datapaths to form data_1 + data_2
-- SUB : Subtracts the datapaths to form data_1 - data_2
-- AND : Takes the bitwise-and of the datapaths. data_1 & data_2
-- NOT : Takes the bitwise Boolean complement of data_1
+Opcode|Action
+-|-
+ADD | Adds the datapaths to form data_1 + data_2
+SUB | Subtracts the datapaths to form data_1 - data_2
+AND | Takes the bitwise and of the datapaths data_1 & data_2
+NOT | Takes the bitwise Boolean complement of data_1
 
-## Control Unit
+## **Control Unit**
 ### Functions of the control unit:
 1. Determine when to load registers
 2. Select the path of data through the multiplexers
@@ -58,20 +60,21 @@ For the purposes of this example, the ALU has two operand datapaths, data_1 and 
 4. Control the three-state busses in the architecture.
 
 ### Control Signals :
-
-- Load_Add_R : Loads the address register
-- Load_PC :  Loads Bus_2to the program counter
-- Load_IR : Loads Bus_2 to the instruction register
-- Inc_PC : Increments the program counter
-- Sel_Bus_1_Mux : Selects among the Program_Counter, R0, R1, R2, and R3 to drive Bus_1
-- Sel_Bus_2_Mux : Selects among Alu_out, Bus_1, and memory to drive Bus_2
-- Load_R0 : Loads general purpose register R0
-- Load_R1 : Loads general purpose register R1
-- Load_R2 : Loads general purpose register R2
-- Load_R3 : Loads general purpose register R3
-- Load_Reg_Y : Loads Bus_2 to the register Reg_Y
-- Load_Reg_Z : Stores output of ALU in register Reg_Z
-- write : Loads Bus_1 into the SRAM memory
+Control Signal|Action
+-|-
+Load_Add_R|Loads the address register
+Load_PC|Loads Bus_2to the program counter
+Load_IR|Loads Bus_2 to the instruction register
+Inc_PC|Increments the program counter
+Sel_Bus_1_Mux | Selects among the Program_Counter, R0, R1, R2, and R3 to drive Bus_1
+Sel_Bus_2_Mux|Selects among Alu_out, Bus_1, and memory to drive Bus_2
+Load_R0|Loads general purpose register R0
+Load_R1|Loads general purpose register R1
+Load_R2|Loads general purpose register R2
+Load_R3|Loads general purpose register R3
+Load_Reg_Y|Loads Bus_2 to the register Reg_Y
+Load_Reg_Z|Stores output of ALU in register Reg_Z
+write|Loads Bus_1 into the SRAM memory
 
 ### Instruction Set
 ...
@@ -80,8 +83,8 @@ For the purposes of this example, the ALU has two operand datapaths, data_1 and 
 ### Controller ASM
 ...
 
-## Memory Unit
+## **Memory Unit**
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM 
 
-## Testbench
+## **Testbench**
 To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit.
