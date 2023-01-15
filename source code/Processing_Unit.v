@@ -8,7 +8,6 @@ module Processing_Unit(
     input [1:0] Sel_Bus_2_Mux,
     input clk, rst
 );
-    //wire Load_R0, Load_R1, Load_R2, Load_R3;
     wire [7:0] Bus_2, R0_out, R1_out, R2_out, R3_out, PC_count, Y_out, ALU_out;
     wire ALU_Zflag;
     wire [3:0] opcode = instruction [7:4];

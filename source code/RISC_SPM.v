@@ -1,7 +1,7 @@
 module RISC_SPM(input clk,rst);
     wire [2:0] Sel_Bus_1_Mux; //5 to 1 multiplexer
     wire [1:0] Sel_Bus_2_Mux; //3 to 1 multiplexer
-    wire Zflag;
+    wire Zflag; //ALU's zero flag
     wire [7:0] instruction, address, Bus_1, mem_word; 
     wire Load_R0, Load_R1, Load_R2, Load_R3, Load_PC, Inc_PC, Load_IR;
     wire Load_Add_R, Load_Reg_Y, Load_Reg_Z;
