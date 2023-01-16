@@ -62,19 +62,19 @@ NOT | Takes the bitwise Boolean complement of data_1
 ### Control Signals :
 Control Signal|Action
 -|-
-Load_Add_R|Loads the address register
-Load_PC|Loads Bus_2to the program counter
-Load_IR|Loads Bus_2 to the instruction register
-Inc_PC|Increments the program counter
-Sel_Bus_1_Mux | Selects among the Program_Counter, R0, R1, R2, and R3 to drive Bus_1
-Sel_Bus_2_Mux|Selects among Alu_out, Bus_1, and memory to drive Bus_2
+Load_Add_R|Loads the Address Register
+Load_PC|Loads Bus_2 to the Program Counter
+Load_IR|Loads Bus_2 to the Instruction Register
+Inc_PC|Increments the Program Counter
+Sel_Bus_1_Mux|Selects among the Program Counter, R0, R1, R2, and R3 to drive Bus_1
+Sel_Bus_2_Mux|Selects among ALU_out, Bus_1, and memory to drive Bus_2
 Load_R0|Loads general purpose register R0
 Load_R1|Loads general purpose register R1
 Load_R2|Loads general purpose register R2
 Load_R3|Loads general purpose register R3
 Load_Reg_Y|Loads Bus_2 to the register Reg_Y
-Load_Reg_Z|Stores output of ALU in register Reg_Z
-write|Loads Bus_1 into the SRAM memory
+Load_Reg_Z|Stores the zero Flag of ALU in register Reg_Z
+write|Loads Bus_1 into the memory
 
 ### Instruction Set
 A machine language program consists of a stored sequence of 8-bit words (bytes). The format of an instruction of RISC_SPM can be long or short, depending on the operation : 
@@ -96,16 +96,16 @@ Short instruction|Action
 NOP|No operation is performed; all registers retain their values. The addresses of the source and destination register are don't-cares, they have no effect.
 ADD|Adds the contents of the source and destination registers and stores the result into the destination register.
 SUB|Subtracts the content of the source register from the destination register and stores the result into the destination register.
-AND|Forms the bitwise-and of the contents of the source and destination registers and stores the result into the destination register.
+AND|Forms the bitwise and of the contents of the source and destination registers and stores the result into the destination register.
 NOT|Forms the bitwise complement of the content of the source register and stores the result into the destination register.
 HALT|Halts execution until reset
 
 Long instruction|Action
 -|-
-RD|Fetches a memory word from the location specified by the second byte and loads the result into the destination register. The source register bits are don't-cares (i.e. unused).
-WR|Writes the contents of the source register to the word in memory specified by the address held in the second byte. The destination register bits are don't-cares (i.e. unused).
-BR|Branches the activity flow by loading the program counter with the word at the location (address) specified by the second byte of the instruction. The source and destination bits are don't-cares (i.e. unused).
-BRZ|Branches the activity flow by loading the program counter with the word at the location (address) specified by the second byte of the instruction if the zero flag register is asserted.
+RD|Reads a word from the location specified by the second byte and loads the result into the destination register. The source register bits are don't-cares.
+WR|Writes the contents of the source register to the word in memory specified by the address held in the second byte. The destination register bits are don't-cares.
+BR|Branches the activity flow by loading the program counter with the word at the address specified by the second byte of the instruction. The source and destination bits are don't-cares.
+BRZ|Branches if the zero flag register is asserted.
 
 The RISC_SPM instruction set is summarized below.
 
@@ -118,37 +118,44 @@ AND|0011|src|dst|dst <= src && dst
 Nor|0100|src|dst|dst <= ~ src
 RD|0101|xx|dst|dst <= memory [Add_R]
 WR|0110|src|xx|memory[Add_R] < = src
-BR|0111|xx|xx|PC<= memory[Add_R]
-BRZ|1000|xx|xx|PC<= memory[Add_R]
-HALT|1111|xx|xx|Halts execution until reset
+BR|0111|xx|xx|PC <= memory[Add_R]
+BRZ|1000|xx|xx|PC <= memory[Add_R]
+HALT|1111|xx|xx|Halts execution until reset (Finish programm)
 
 
 ### Controller States
 Three phases of operation: fetch, decode, and execute.
-- Fetching: Retrieves an instruction from memory (2 clock cycles)
-- Decoding: Decodes the instruction, manipulates datapaths,and loads registers (1 clock cycle)
-- Execution: Generates the results of the instruction (0, 1,or 2 clock cycles)
+- Fetching : Retrieves an instruction from memory (2 clock cycles)
+- Decoding : Decodes the instruction, manipulates datapaths ,and loads registers (1 clock cycle)
+- Execution : Generates the results of the instruction (0, 1 or 2 clock cycles)
+    - ALU operations
+    - Update storage registers
+    - Update program counter (PC)
+    - Update the instruction register (IR)
+    - Update the address register (ADD_R)
+    - Update memory
+    - Control datapaths
 
 State|Action
 -|-
 idle|State entered after reset is asserted. No action.
-fet1|Load the Add_R with the contents of the PC. (Note: PC is initialized to the starting address by the reset action.) The state is entered at the first active clock after reset is de-asserted, and is revisited after a NOP instruction is decoded.
-fet2|Load the IR with the word addressed by the Add_R, and increment the program counter to point to the next location in memory, in anticipation of tlie next instruction or data fetch.
+fet1|Load the Add_R with the contents of the PC. (Note: PC is initialized to the starting address 00H by the reset action.) The state is entered at the first active clock after reset is de-asserted, and is revisited after a NOP instruction is decoded.
+fet2|Load the IR with the word addressed by the Add_R, and increment the PC to point to the next location in memory, in anticipation of the next instruction or data fetch.
 dec|Decode the IR and assert signals to control datapaths and register transfers.
 ex1|Execute the ALU operation for a single-byte instruction, conditionally assert the zero flag, and load the destination register.
 rd1|Load the Add_R with the second byte of a RD instruction, and increment the PC.
 rd2|Load the destination register with the memory word addressed by the byte loaded in rd1.
 wr1|Load the Add_R with the second byte of a WR instruction, and increment the PC.
-wr2|Load the destination register with the memory word addressed by the byte loaded in wr1.
+wr2|Load the source register with the memory word addressed by the byte loaded in wr1.
 br1|Load the Add_R with the second byte of a BR instruction, and increment the PC.
-br2|Load the program counter with the memory word addressed by the byte loaded in br1 .
+br2|Load the PC with the memory word addressed by the byte loaded in br1 .
 halt|Default state to trap failure to decode a valid instruction.
 
 ### Controller ASM
 ...
 
 ## **Memory Unit**
-For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM 
+For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
 
 ## **Testbench**
 To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit.
