@@ -148,7 +148,7 @@ rd2|Load the destination register with the memory word addressed by the byte loa
 wr1|Load the Add_R with the second byte of a WR instruction, and increment the PC.
 wr2|Load the source register with the memory word addressed by the byte loaded in wr1.
 br1|Load the Add_R with the second byte of a BR instruction, and increment the PC.
-br2|Load the PC with the memory word addressed by the byte loaded in br1 .
+br2|Load the PC with the memory word addressed by the byte loaded in br1.
 halt|Default state to trap failure to decode a valid instruction.
 
 ### Controller ASM
