@@ -81,13 +81,13 @@ A machine language program consists of a stored sequence of 8-bit words (bytes).
 - Short instructions : requires 1 byte of memory to specifies 4-bit opcode, 2-bit source register address, a 2-bit destination register address.
 - Long instruction : requires 2 bytes of memory. The first word of a long instruction contains a 4-bit opcode. The remaining 4 bits of the word can be used to specify addresses of a pair of source and destination registers, depending on the instruction. The second word contains the address of the memory word that holds an operand required by the instruction
 
-Opcode|Src|Dst
+Opcode|Dst|Src
 -|-|-
 0  0 1 0|0 1|1 0
 
-Opcode|Src|Dst|Address
+Opcode|Dst|Src|Address
 -|-|-|-
-0  1 1 0|1 0|x x|0 0 0 1 1 1 0 1
+0 1 1 0|x x|1 0|0 0 0 1 1 1 0 1
 
 The instruction mnemonics and their actions are listed below.
 
@@ -109,15 +109,15 @@ BRZ|Branches if the zero flag register is asserted.
 
 The RISC_SPM instruction set is summarized below.
 
-Ins|Opcode|Src|Dst|Action
+Ins|Opcode|Dst|Src|Action
 -|-|-|-|-
 NOP|0000|xx|xx|none
-ADD|0001|src|dst|dst <= src + dst
-SUB|0010|src|dst|dst <= dst - src
-AND|0011|src|dst|dst <= src && dst
-Nor|0100|src|dst|dst <= ~ src
-RD|0101|xx|dst|dst <= memory [Add_R]
-WR|0110|src|xx|memory[Add_R] < = src
+ADD|0001|dst|src|dst <= src + dst
+SUB|0010|dst|src|dst <= dst - src
+AND|0011|dst|src|dst <= src && dst
+NOT|0100|dst|src|dst <= ~ src
+RD|0101|dst|xx|dst <= memory [Add_R]
+WR|0110|xx|src|memory[Add_R] < = src
 BR|0111|xx|xx|PC <= memory[Add_R]
 BRZ|1000|xx|xx|PC <= memory[Add_R]
 HALT|1111|xx|xx|Halts execution until reset (Finish programm)
