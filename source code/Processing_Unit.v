@@ -2,11 +2,9 @@ module Processing_Unit(
     output [7:0] instruction, address, Bus_1,
     output Zflag,
     input [7:0] mem_word,
-    input Load_R0, Load_R1, Load_R2, Load_R3, Load_PC, Inc_PC,
-    input Load_IR, Load_Add_R, Load_Reg_Y, Load_Reg_Z,
     input [2:0] Sel_Bus_1_Mux,
     input [1:0] Sel_Bus_2_Mux,
-    input clk, rst
+    input Load_R0, Load_R1, Load_R2, Load_R3, Load_PC, Inc_PC, Load_IR, Load_Add_R, Load_Reg_Y, Load_Reg_Z, clk, rst
 );
     wire [7:0] Bus_2, R0_out, R1_out, R2_out, R3_out, PC_count, Y_out, ALU_out;
     wire ALU_Zflag;

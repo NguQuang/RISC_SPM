@@ -31,8 +31,8 @@ module Control_Unit(
     reg err_flag; // error flag
 
     wire [3:0] opcode = instruction[7:4];
-    wire [1:0] src = instruction [3:2]; //source
-    wire [1:0] dst = instruction [1:0]; //destination
+    wire [1:0] dst = instruction [3:2]; //destination
+    wire [1:0] src = instruction [1:0]; //source
 
     always @ (posedge clk or negedge rst) begin
         if(!rst)
@@ -51,37 +51,34 @@ module Control_Unit(
         case (state)
             `idle : next_state = `fet1;
             `fet1 :begin
-                next_state = `fet2;
-                Sel_Bus_1_Mux = 4; // Select PC
-                Sel_Bus_2_Mux = 1; // Select Bus_1
+                Sel_Bus_1_Mux = 4; // Bus_1 = PC
+                Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
                 Load_Add_R = 1; 
+                next_state = `fet2;
             end
-            `fet2:begin
-                next_state = `dec;
-                Sel_Bus_2_Mux = 2; // Select memory
+            `fet2 :begin
+                Sel_Bus_2_Mux = 2; // Bus_2 = memory
                 Load_IR = 1;
                 Inc_PC = 1;
+                next_state = `dec;
             end
             `dec :begin
                 case(opcode)
                     `NOP : next_state = `fet1;
                     `ADD, `SUB, `AND : begin
                         next_state = `ex1;
-                        Sel_Bus_2_Mux = 1; // Select Bus 1
-                        Load_Reg_Y = 1;
                         case (src)
-                            0 : Sel_Bus_1_Mux = 0;
-                            1 : Sel_Bus_1_Mux = 1;
-                            2 : Sel_Bus_1_Mux = 2;
-                            3 : Sel_Bus_1_Mux = 3;
+                            0 : Sel_Bus_1_Mux = 0; //Bus 1 = R0
+                            1 : Sel_Bus_1_Mux = 1; //Bus 1 = R1
+                            2 : Sel_Bus_1_Mux = 2; //Bus 1 = R2
+                            3 : Sel_Bus_1_Mux = 3; //Bus 1 = R3
                             default : err_flag = 1;
                         endcase
+                        Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
+                        Load_Reg_Y = 1; // Reg_Y = Bus_2 = Bus_1 = src
                     end
                     `NOT : begin
                         next_state = `fet1;
-                        Load_Reg_Z = 1;
-                        Sel_Bus_2_Mux = 1; // Select Bus 1
-                        Sel_Bus_2_Mux = 0; // Select ALU
                         case (src)
                             0 : Sel_Bus_1_Mux = 0;
                             1 : Sel_Bus_1_Mux = 1;
@@ -89,6 +86,7 @@ module Control_Unit(
                             3 : Sel_Bus_1_Mux = 3;
                             default : err_flag = 1;
                         endcase
+                        Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
                         case (dst)
                             0 : Load_R0 = 1;
                             1 : Load_R1 = 1;
@@ -96,31 +94,33 @@ module Control_Unit(
                             3 : Load_R3 = 1;
                             default err_flag = 1;
                         endcase
+                        Sel_Bus_2_Mux = 0; // Bus_2 = ALU_out
+                        Load_Reg_Z = 1;
                     end
                     `RD : begin
-                        next_state = `rd1;
                         Sel_Bus_1_Mux = 4; // Select PC
-                        Sel_Bus_2_Mux = 1; // Select Bus 1
+                        Sel_Bus_2_Mux = 1; // Select Bus_1
                         Load_Add_R = 1;
+                        next_state = `rd1;
                     end
                     `WR : begin
-                        next_state = ` wr1;
                         Sel_Bus_1_Mux = 4; // Select PC
-                        Sel_Bus_2_Mux = 1; // Select Bus 1
+                        Sel_Bus_2_Mux = 1; // Select Bus_1
                         Load_Add_R = 1;
+                        next_state = ` wr1;
                     end
                     `BR : begin
-                        next_state = `br1;
                         Sel_Bus_1_Mux = 4; // Select PC
-                        Sel_Bus_2_Mux = 1; // Select Bus 1
+                        Sel_Bus_2_Mux = 1; // Select Bus_1
                         Load_Add_R = 1;
+                        next_state = `br1;
                     end
                     `BRZ : begin
                         if (Zflag == 1) begin
-                            next_state = `br1;
                             Sel_Bus_1_Mux = 4; // Select PC
-                            Sel_Bus_2_Mux = 1; // Select Bus 1
+                            Sel_Bus_2_Mux = 1; // Select Bus_1
                             Load_Add_R = 1;
+                            next_state = `br1;
                         end
                         else begin
                             next_state = `fet1;
@@ -130,24 +130,18 @@ module Control_Unit(
             end
             `ex1 :begin
                 next_state = `fet1;
-                Load_Reg_Z = 1;
-                Sel_Bus_2_Mux = 0;
+                Sel_Bus_2_Mux = 0; //Bus_2 = ALU_out
                 case (dst)
-                    0: begin Sel_Bus_1_Mux = 0; Load_R0 = 1; end 
-                    1: begin Sel_Bus_1_Mux = 1; Load_R1 = 1; end
-                    2: begin Sel_Bus_1_Mux = 2; Load_R2 = 1; end
-                    3: begin Sel_Bus_1_Mux = 3; Load_R3 = 1; end
-                    default : err_flag = 1 ;
+                    0: begin Sel_Bus_1_Mux = 0; Load_R0 = 1; end //R0 = ALU_out
+                    1: begin Sel_Bus_1_Mux = 1; Load_R1 = 1; end //R1 = ALU_out
+                    2: begin Sel_Bus_1_Mux = 2; Load_R2 = 1; end //R2 = ALU_out
+                    3: begin Sel_Bus_1_Mux = 3; Load_R3 = 1; end //R3 = ALU_out
+                    default : err_flag = 1;
                 endcase
+                Load_Reg_Z = 1; 
             end
             `rd1 :begin
                 next_state = `rd2;
-                Sel_Bus_2_Mux = 2;
-                Load_Add_R = 1;
-                Inc_PC = 1;
-            end
-            `wr1 :begin
-                next_state = `wr2;
                 Sel_Bus_2_Mux = 2;
                 Load_Add_R = 1;
                 Inc_PC = 1;
@@ -163,6 +157,12 @@ module Control_Unit(
                     default : err_flag = 1;
                 endcase
             end 
+            `wr1 :begin
+                next_state = `wr2;
+                Sel_Bus_2_Mux = 2;
+                Load_Add_R = 1;
+                Inc_PC = 1;
+            end
             `wr2 :begin
                 next_state = `fet1;
                 write = 1;
