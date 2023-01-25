@@ -1,7 +1,7 @@
 # **RISC-SPM**
 >A final project of the course "Digital Design using VHDL"
 
-# **Note**
+## **Note**
 Our design is a modified version from the reference book that can be found in documents folder. All the changes are listed in Apendix section at the end of this text.
 
 ## **Overview**
