@@ -8,9 +8,9 @@ module Memory_Unit(
 
     always @(posedge clk) begin
         if(write)
-            RAM.memory[address] <= data_in;            
+            memory[address] <= data_in;            
     end
-    assign data_out = RAM.memory[address];
+    assign data_out = memory[address];
 endmodule
 
 module Memory_Unit_tb;

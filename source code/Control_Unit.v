@@ -98,29 +98,29 @@ module Control_Unit(
                         Load_Reg_Z = 1;
                     end
                     `RD : begin
-                        Sel_Bus_1_Mux = 4; // Select PC
-                        Sel_Bus_2_Mux = 1; // Select Bus_1
-                        Load_Add_R = 1;
                         next_state = `rd1;
+                        Sel_Bus_1_Mux = 4; // Bus_1 = PC
+                        Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
+                        Load_Add_R = 1;
                     end
                     `WR : begin
-                        Sel_Bus_1_Mux = 4; // Select PC
-                        Sel_Bus_2_Mux = 1; // Select Bus_1
+                        next_state = `wr1;
+                        Sel_Bus_1_Mux = 4; // Bus_1 = PC
+                        Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
                         Load_Add_R = 1;
-                        next_state = ` wr1;
                     end
                     `BR : begin
-                        Sel_Bus_1_Mux = 4; // Select PC
-                        Sel_Bus_2_Mux = 1; // Select Bus_1
-                        Load_Add_R = 1;
                         next_state = `br1;
+                        Sel_Bus_1_Mux = 4; // Bus_1 = PC
+                        Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
+                        Load_Add_R = 1;
                     end
                     `BRZ : begin
-                        if (Zflag == 1) begin
-                            Sel_Bus_1_Mux = 4; // Select PC
-                            Sel_Bus_2_Mux = 1; // Select Bus_1
-                            Load_Add_R = 1;
                             next_state = `br1;
+                        if (Zflag == 1) begin
+                            Sel_Bus_1_Mux = 4; // Bus_1 = PC
+                            Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
+                            Load_Add_R = 1;
                         end
                         else begin
                             next_state = `fet1;
@@ -142,7 +142,7 @@ module Control_Unit(
             end
             `rd1 :begin
                 next_state = `rd2;
-                Sel_Bus_2_Mux = 2;
+                Sel_Bus_2_Mux = 2; // Bus_2 = mem_word
                 Load_Add_R = 1;
                 Inc_PC = 1;
             end
@@ -159,29 +159,29 @@ module Control_Unit(
             end 
             `wr1 :begin
                 next_state = `wr2;
-                Sel_Bus_2_Mux = 2;
+                Sel_Bus_2_Mux = 2; // Bus_2 = mem_word
                 Load_Add_R = 1;
                 Inc_PC = 1;
             end
             `wr2 :begin
                 next_state = `fet1;
-                write = 1;
                 case (src)
-                    0 : Sel_Bus_1_Mux = 0;
-                    1 : Sel_Bus_1_Mux = 1;
-                    2 : Sel_Bus_1_Mux = 2;
-                    3 : Sel_Bus_1_Mux = 3;
+                    0 : Sel_Bus_1_Mux = 0; // Bus_1 = R0
+                    1 : Sel_Bus_1_Mux = 1; // Bus_1 = R1
+                    2 : Sel_Bus_1_Mux = 2; // Bus_1 = R2
+                    3 : Sel_Bus_1_Mux = 3; // Bus_1 = R3
                     default : err_flag = 1;
                 endcase
+                write = 1;
             end
             `br1 :begin
                 next_state = `br2;
-                Sel_Bus_2_Mux = 2;
-                Load_Add_R = 1;
+                Sel_Bus_2_Mux = 2; // Bus_2 = mem_word
+                Load_Add_R = 1; 
             end
             `br2 :begin
                 next_state = `fet1;
-                Sel_Bus_2_Mux = 2;
+                Sel_Bus_2_Mux = 2; // Bus_2 = mem_word
                 Load_PC = 1;
             end
             `halt :begin

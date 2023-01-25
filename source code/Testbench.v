@@ -19,21 +19,21 @@ module RISC_SPM_tb;
     initial begin
         #5
         MCU.Ram.memory[0]= 8'b0000_00_00;  //NOP
-        MCU.Ram.memory[1]= 8'b0101_00_10;  // Read 130 to R2
+        MCU.Ram.memory[1]= 8'b0101_10_00;  // Read 130 to R2
         MCU.Ram.memory[2]= 130;
-        MCU.Ram.memory[3]= 8'b0101_00_11;  // Read 131 to R3
+        MCU.Ram.memory[3]= 8'b0101_11_00;  // Read 131 to R3
         MCU.Ram.memory[4]= 131;
-        MCU.Ram.memory[5]= 8'b0101_00_01;  // Read 128 to R1
+        MCU.Ram.memory[5]= 8'b0101_01_00;  // Read 128 to R1
         MCU.Ram.memory[6]= 128;
         MCU.Ram.memory[7]= 8'b0101_00_00;  // Read 129 to R0
         MCU.Ram.memory[8]= 129;
 
-        MCU.Ram.memory[9]= 8'b0010_00_01;   //Sub R1-R0 to R1
+        MCU.Ram.memory[9]= 8'b0010_01_00;   //Sub R1-R0 to R1
 
         MCU.Ram.memory[10]=8'b1000_00_00;   //BRZ
         MCU.Ram.memory[11]=134;             //hold address for BRZ
 
-        MCU.Ram.memory[12]= 8'b0001_10_11;  //add R2+R3 to R3
+        MCU.Ram.memory[12]= 8'b0001_11_10;  //add R2+R3 to R3
         MCU.Ram.memory[13]= 8'b0111_00_11;  //BR
         MCU.Ram.memory[14]= 140;
 
