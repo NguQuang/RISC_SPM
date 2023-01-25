@@ -36,7 +36,7 @@ module Control_Unit(
 
     always @ (posedge clk or negedge rst) begin
         if(!rst)
-            state <= `idle;
+            state <= `idle; // reset active low
         else
             state <= next_state;
     end
