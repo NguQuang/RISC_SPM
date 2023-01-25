@@ -1,5 +1,9 @@
-# RISC-SPM
+# **RISC-SPM**
 >A final project of the course "Digital Design using VHDL"
+
+# **Note**
+Our design is a modified version from the reference book that can be found in documents folder. All the changes are listed in Apendix section at the end of this text.
+
 ## **Overview**
 Reduced instruction-set computers (RISC) are designed to have a small set of instructions that execute in short clock cycles, with a small number of cycles per instruction. RISC machines are optimized to achieve efficient pipelining of their instruction streams. The machine also serves as a starting point for developing architectural variants and a more robust instruction set. Designers make high-level tradeoffs in selecting an architecture that serves an
 application. Once an architecture has been selected, a circuit that has sufficient performance (speed) must be synthesized. Hardware description languages (HDLs) play a key role in this process by modeling the system and serving as a descriptive medium
@@ -158,4 +162,62 @@ halt|Default state to trap failure to decode a valid instruction.
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
 
 ## **Testbench**
-To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit.
+To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit. 
+
+# **Apendix**
+Below is all the differences from the reference book that we made along the project : 
+- **Structure of the instruction**
+
+*before*
+
+opcode | src | dst
+
+*after*
+
+opcode | dst | src
+
+There's no particular reason for that, it's kinda my habit to put destination before source
+
+- **Remove parameterize word size, multiplexer size,...**
+
+*before*
+```verilog
+parameter word_size = 8;
+parameter Sel1_size = 3;
+parameter Sel2_size = 2;
+wire [Sel1_size-1:0] Sel_Bus_1_Mux;
+wire [Sel2_size-1:0] Sel_Bus_2_Mux;
+wire [word_size-1:0] instruction, address, Bus_1, mem_word;
+```
+*after*
+```verilog
+wire [2:0] Sel_Bus_1_Mux; //5 to 1 multiplexer
+wire [1:0] Sel_Bus_2_Mux; //3 to 1 multiplexer
+wire [7:0] instruction, address, Bus_1, mem_word; 
+```
+- Using globle define instead of parameterize opcode names and state names
+
+*before*
+```verilog
+parameter NOP = 4'b0000;
+parameter ADD = 4'b0001;
+parameter SUB = 4'b0010;
+parameter AND = 4'b0011;
+parameter NOT = 4'b0100;
+parameter RD = 4'b0101;
+parameter WR = 4'b0110;
+parameter BR = 4'b0111 ;
+parameter BRZ = 4'b1000;
+```
+*after*
+```verilog
+`define ADD     4'b0001
+`define SUB     4'b0010
+`define AND     4'b0011
+`define NOT     4'b0100
+`define RD      4'b0101
+`define WR      4'b0110
+`define BR      4'b0111
+`define BRZ     4'b1000
+``` 
+
