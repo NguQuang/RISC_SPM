@@ -2,7 +2,7 @@
 `define fet1    1
 `define fet2    2
 `define dec     3
-`define ex1     4
+`define exe     4
 `define rd1     5
 `define rd2     6
 `define wr1     7
@@ -19,6 +19,7 @@
 `define WR      4'b0110
 `define BR      4'b0111
 `define BRZ     4'b1000
+`define HALT    4'b1111
 module Control_Unit(
     output reg Load_R0, Load_R1, Load_R2, Load_R3, Load_PC, Inc_PC, Load_IR, Load_Add_R, Load_Reg_Y, Load_Reg_Z, write,
     output reg [2:0] Sel_Bus_1_Mux,
@@ -66,7 +67,7 @@ module Control_Unit(
                 case(opcode)
                     `NOP : next_state = `fet1;
                     `ADD, `SUB, `AND : begin
-                        next_state = `ex1;
+                        next_state = `exe;
                         case (src)
                             0 : Sel_Bus_1_Mux = 0; //Bus 1 = R0
                             1 : Sel_Bus_1_Mux = 1; //Bus 1 = R1
@@ -126,9 +127,10 @@ module Control_Unit(
                             next_state = `fet1;
                         end
                     end
+                    `HALT : next_state = `halt;
                 endcase
             end
-            `ex1 :begin
+            `exe :begin
                 next_state = `fet1;
                 Sel_Bus_2_Mux = 0; //Bus_2 = ALU_out
                 case (dst)
