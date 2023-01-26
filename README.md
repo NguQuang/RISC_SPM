@@ -57,7 +57,7 @@ AND | Takes the bitwise and of the datapaths data_1 & data_2
 NOT | Takes the bitwise Boolean complement of data_1
 
 ## **Control Unit**
-### Functions of the control unit:
+### Functions of the control unit :
 1. Determine when to load registers
 2. Select the path of data through the multiplexers
 3. Determine when data should be written to memory
@@ -146,7 +146,7 @@ idle|State entered after reset is asserted. No action.
 fet1|Load the Add_R with the contents of the PC. (Note: PC is initialized to the starting address 00H by the reset action.) The state is entered at the first active clock after reset is de-asserted, and is revisited after a NOP instruction is decoded.
 fet2|Load the IR with the word addressed by the Add_R, and increment the PC to point to the next location in memory, in anticipation of the next instruction or data fetch.
 dec|Decode the IR and assert signals to control datapaths and register transfers.
-ex1|Execute the ALU operation for a single-byte instruction, conditionally assert the zero flag, and load the destination register.
+exe|Execute the ALU operation for a single-byte instruction, conditionally assert the zero flag, and load the destination register.
 rd1|Load the Add_R with the second byte of a RD instruction, and increment the PC.
 rd2|Load the destination register with the memory word addressed by the byte loaded in rd1.
 wr1|Load the Add_R with the second byte of a WR instruction, and increment the PC.
@@ -155,8 +155,8 @@ br1|Load the Add_R with the second byte of a BR instruction, and increment the P
 br2|Load the PC with the memory word addressed by the byte loaded in br1.
 halt|Default state to trap failure to decode a valid instruction.
 
-### Controller ASM
-...
+### State transition diagram
+![State transition diagram](https://github.com/canh25xp/RISC-SPM/blob/main/assets/State_Transitions.drawio.png)
 
 ## **Memory Unit**
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
@@ -195,7 +195,7 @@ wire [2:0] Sel_Bus_1_Mux; //5 to 1 multiplexer
 wire [1:0] Sel_Bus_2_Mux; //3 to 1 multiplexer
 wire [7:0] instruction, address, Bus_1, mem_word; 
 ```
-- Using globle define instead of parameterize opcode names and state names
+- **Using globle define instead of parameterize opcode names and state names**
 
 *before*
 ```verilog
