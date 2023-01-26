@@ -66,7 +66,7 @@ module Control_Unit(
             `dec :begin
                 case(opcode)
                     `NOP : next_state = `fet1;
-                    `ADD, `SUB, `AND : begin
+                    `ADD, `SUB, `AND, `NOT : begin
                         next_state = `exe;
                         case (src)
                             0 : Sel_Bus_1_Mux = 0; //Bus 1 = R0
@@ -77,26 +77,6 @@ module Control_Unit(
                         endcase
                         Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
                         Load_Reg_Y = 1; // Reg_Y = Bus_2 = Bus_1 = src
-                    end
-                    `NOT : begin
-                        next_state = `fet1;
-                        case (src)
-                            0 : Sel_Bus_1_Mux = 0;
-                            1 : Sel_Bus_1_Mux = 1;
-                            2 : Sel_Bus_1_Mux = 2;
-                            3 : Sel_Bus_1_Mux = 3;
-                            default : err_flag = 1;
-                        endcase
-                        Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
-                        case (dst)
-                            0 : Load_R0 = 1;
-                            1 : Load_R1 = 1;
-                            2 : Load_R2 = 1;
-                            3 : Load_R3 = 1;
-                            default err_flag = 1;
-                        endcase
-                        Sel_Bus_2_Mux = 0; // Bus_2 = ALU_out
-                        Load_Reg_Z = 1;
                     end
                     `RD : begin
                         next_state = `rd1;
@@ -127,12 +107,11 @@ module Control_Unit(
                             next_state = `fet1;
                         end
                     end
-                    `HALT : next_state = `halt;
+                    default : next_state = `halt;
                 endcase
             end
             `exe :begin
                 next_state = `fet1;
-                Sel_Bus_2_Mux = 0; //Bus_2 = ALU_out
                 case (dst)
                     0: begin Sel_Bus_1_Mux = 0; Load_R0 = 1; end //R0 = ALU_out
                     1: begin Sel_Bus_1_Mux = 1; Load_R1 = 1; end //R1 = ALU_out
@@ -140,6 +119,7 @@ module Control_Unit(
                     3: begin Sel_Bus_1_Mux = 3; Load_R3 = 1; end //R3 = ALU_out
                     default : err_flag = 1;
                 endcase
+                Sel_Bus_2_Mux = 0; //Bus_2 = ALU_out
                 Load_Reg_Z = 1; 
             end
             `rd1 :begin

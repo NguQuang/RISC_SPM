@@ -20,7 +20,7 @@ module Arithmetic_Logic_Unit(
             `ADD :      ALU_out = data_2 + data_1;
             `SUB :      ALU_out = data_2 - data_1;
             `AND :      ALU_out = data_1 & data_2;
-            `NOT :      ALU_out =        ~ data_2;
+            `NOT :      ALU_out = ~ data_1;
             default :   ALU_out = 0;
         endcase
     end
