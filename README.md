@@ -158,6 +158,9 @@ halt|Default state to trap failure to decode a valid instruction.
 ### State transition diagram
 ![State transition diagram](https://github.com/canh25xp/RISC-SPM/blob/main/assets/State_Transitions.drawio.png)
 
+### ASM chart
+![ASM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/ASM.drawio.png)
+
 ## **Memory Unit**
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
 
