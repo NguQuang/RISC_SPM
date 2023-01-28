@@ -19,7 +19,6 @@
 `define WR      4'b0110
 `define BR      4'b0111
 `define BRZ     4'b1000
-`define HALT    4'b1111
 module Control_Unit(
     output reg Load_R0, Load_R1, Load_R2, Load_R3, Load_PC, Inc_PC, Load_IR, Load_Add_R, Load_Reg_Y, Load_Reg_Z, write,
     output reg [2:0] Sel_Bus_1_Mux,
