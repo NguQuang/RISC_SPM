@@ -33,17 +33,8 @@ The address register (Add_R) contains the address of the memory location that wi
 ## **1. Processing Unit**
 The processor includes *registers*, *buses*, *control lines*, and an *ALU* capable of performing arithmetic and logic operations on its operands depends on the opcode held in the instruction register.
 
-There are 2 multiplexers in the Processing Unit : 
-- Mux_1 : it's a 5-1 multiplexer
-    - Output : Bus_1
-    - Input : R0, R1, R2, R3, PC
-- Mux_2 : it's a 3-1 multiplexer
-    - Output : Bus_2
-    - Input : ALU's output, Bus_1
-
-An instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
-
 ### 1.1 Arithmetic Logic Unit
+
 For the purposes of this example, the ALU has two operand datapaths, data_1 and data_2, and its instruction set is limited to only 4 instructions, that is :
 
 Opcode|Action
@@ -52,6 +43,110 @@ ADD | Adds the datapaths to form data_1 + data_2
 SUB | Subtracts the datapaths to form data_1 - data_2
 AND | Takes the bitwise and of the datapaths data_1 & data_2
 NOT | Takes the bitwise Boolean complement of data_1
+
+```verilog
+module Arithmetic_Logic_Unit(
+    output reg [7:0] ALU_out,
+    output ALU_Zflag,
+    input [7:0] data_1, data_2,
+    input [3:0] opcode
+);
+    
+    assign ALU_Zflag = ~|ALU_out; //reduction nor
+    always @(opcode or data_1 or data_2) begin
+        case(opcode)
+            `ADD :      ALU_out = data_2 + data_1;
+            `SUB :      ALU_out = data_2 - data_1;
+            `AND :      ALU_out = data_1 & data_2;
+            `NOT :      ALU_out = ~ data_1;
+            default :   ALU_out = 0;
+        endcase
+    end
+endmodule 
+```
+
+### 1.2. Register Unit
+
+There are 9 registers in our design :
+- 5 general-purpose registers R0, R1, R2, R3, Reg_y ( 8-bit )
+- 3 special purpose register PC, IR, Add_R ( 8-bit )
+- 1 flag register Reg_Z ( 1-bit )
+
+All register has a load signal to store data, a clock signal (clk) to synchronize and a reset signal (rst) to erase data (all bits are set to 0)
+
+The zero flag register Reg_Z is a 1-bit register, so basically it is a D flip flop.
+
+The Program Counter Register (PC) has an additional signal Inc_PC to increase PC by 1 unit.
+
+```verilog
+module Register_Unit(output reg [7:0] data_out, input [7:0] data_in, input load, clk, rst);
+    always @(posedge clk or negedge rst)
+    if (!rst)
+        data_out <= 0;
+    else if (load)
+        data_out <= data_in;
+endmodule
+```
+
+```verilog
+module D_ff(output reg data_out, input data_in, load, clk, rst);
+    always @(posedge clk or negedge rst)
+    if (!rst)
+        data_out <= 0;
+    else if (load)
+        data_out <= data_in;
+endmodule
+```
+
+```verilog
+module Program_Counter(output reg [7:0] count, input [7:0] data_in, input Load_PC, Inc_PC, clk, rst);
+    always @(posedge clk or negedge rst)
+    if (!rst)
+        count <= 0;
+    else if (Load_PC)
+        count <= data_in;
+    else if (Inc_PC)
+        count <= count+1;
+endmodule
+```
+
+### 1.3. Multiplexer
+
+There are 2 multiplexers in the Processing Unit : 
+- Mux_1 : it's a 5-1 multiplexer
+    - Output : Bus_1
+    - Input : R0, R1, R2, R3, PC
+- Mux_2 : it's a 3-1 multiplexer
+    - Output : Bus_2
+    - Input : ALU's output, Bus_1
+
+```verilog
+module Mux_3_1 (output reg [7:0] out, input [7:0] in0, in1, in2, input [1:0] sel);
+    always @(in0 or in1 or in2 or sel)
+    case(sel)
+        2'b00 : out = in0;
+        2'b01 : out = in1;
+        2'b10 : out = in2;
+        default : out = 'bx;
+    endcase
+endmodule
+```
+
+```verilog
+module Mux_5_1 (output reg [7:0] out, input [7:0] in0, in1, in2, in3, in4, input [2:0] sel);
+    always @(in0 or in1 or in2 or in3 or in4 or sel)
+    case(sel)
+        3'b000 : out = in0;
+        3'b001 : out = in1;
+        3'b010 : out = in2;
+        3'b011 : out = in3;
+        3'b100 : out = in4;
+        default : out = 'bx;
+    endcase
+endmodule
+```
+
+An instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
 
 ## **2. Control Unit**
 
@@ -168,7 +263,37 @@ halt|Default state to trap failure to decode a valid instruction.
 
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
 
+```verilog
+module Memory_Unit(
+    output [7:0] data_out,
+    input [7:0] data_in, address,
+    input write, clk
+);
+
+    reg [7:0] memory [255:0]; //256 bytes ram
+
+    always @(posedge clk) begin
+        if(write)
+            memory[address] <= data_in;            
+    end
+    assign data_out = memory[address];
+endmodule
+```
+
 # **III. Design verification**
 
 To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit. 
+
+## 1. Waveform
+
+![Wave form](https://raw.githubusercontent.com/canh25xp/RISC-SPM/main/assets/waveform.png)
+
+## 2.Schematic
+
+![Schematic](https://raw.githubusercontent.com/canh25xp/RISC-SPM/main/assets/Schematic.png)
+
+## 3.Memory Data
+
+![Memory Data](https://raw.githubusercontent.com/canh25xp/RISC-SPM/main/assets/memory_data.png)
+
 
