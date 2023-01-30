@@ -4,10 +4,12 @@
 ## **Note**
 Our design is a modified version from the reference book that can be found in documents folder. All the changes are listed in Apendix section at the end of this text.
 
-## **Overview**
+## **I. Overview**
 Reduced instruction-set computers (RISC) are designed to have a small set of instructions that execute in short clock cycles, with a small number of cycles per instruction. RISC machines are optimized to achieve efficient pipelining of their instruction streams. The machine also serves as a starting point for developing architectural variants and a more robust instruction set. Designers make high-level tradeoffs in selecting an architecture that serves an
 application. Once an architecture has been selected, a circuit that has sufficient performance (speed) must be synthesized. Hardware description languages (HDLs) play a key role in this process by modeling the system and serving as a descriptive medium
 that can be used by a synthesis tool.
+
+## **II. Hardware composition**
 
 RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of three functional units :
 1. Processing Unit ( Processor )
@@ -32,9 +34,9 @@ The address register (Add_R) contains the address of the memory location that wi
 
 The Overall Architecture of a simple RISC-SPM is shown below
 
-![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
+![Architecture RISC-SPM](/assets/RISC-SPM.png "Architecture RISC-SPM")
 
-## **Processing Unit**
+### **1. Processing Unit**
 The processor includes *registers*, *buses*, *control lines*, and an *ALU* capable of performing arithmetic and logic operations on its operands depends on the opcode held in the instruction register.
 
 There are 2 multiplexers in the Processing Unit : 
@@ -47,8 +49,9 @@ There are 2 multiplexers in the Processing Unit :
 
 An instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
 
-## **Arithmetic Logic Unit**
+#### a. Arithmetic Logic Unit
 For the purposes of this example, the ALU has two operand datapaths, data_1 and data_2, and its instruction set is limited to only 4 instructions, that is :
+
 Opcode|Action
 -|-
 ADD | Adds the datapaths to form data_1 + data_2
@@ -56,14 +59,17 @@ SUB | Subtracts the datapaths to form data_1 - data_2
 AND | Takes the bitwise and of the datapaths data_1 & data_2
 NOT | Takes the bitwise Boolean complement of data_1
 
-## **Control Unit**
-### Functions of the control unit :
+### **2. Control Unit**
+
+#### 2.1. Functions of the control unit :
+
 1. Determine when to load registers
 2. Select the path of data through the multiplexers
 3. Determine when data should be written to memory
 4. Control the three-state busses in the architecture.
 
-### Control Signals :
+#### 2.2. Control Signals :
+
 Control Signal|Action
 -|-
 Load_Add_R|Loads the Address Register
@@ -80,7 +86,8 @@ Load_Reg_Y|Loads Bus_2 to the register Reg_Y
 Load_Reg_Z|Stores the zero Flag of ALU in register Reg_Z
 write|Loads Bus_1 into the memory
 
-### Instruction Set
+#### 2.3. Instruction Set
+
 A machine language program consists of a stored sequence of 8-bit words (bytes). The format of an instruction of RISC_SPM can be long or short, depending on the operation : 
 - Short instructions : requires 1 byte of memory to specifies 4-bit opcode, 2-bit source register address, a 2-bit destination register address.
 - Long instruction : requires 2 bytes of memory. The first word of a long instruction contains a 4-bit opcode. The remaining 4 bits of the word can be used to specify addresses of a pair of source and destination registers, depending on the instruction. The second word contains the address of the memory word that holds an operand required by the instruction
@@ -127,7 +134,7 @@ BRZ|1000|xx|xx|PC <= memory[Add_R]
 HALT|1111|xx|xx|Halts execution until reset (Finish programm)
 
 
-### Controller States
+#### 2.4. Controller States
 Three phases of operation: fetch, decode, and execute.
 - Fetching : Retrieves an instruction from memory (2 clock cycles)
 - Decoding : Decodes the instruction, manipulates datapaths ,and loads registers (1 clock cycle)
@@ -155,16 +162,20 @@ br1|Load the Add_R with the second byte of a BR instruction, and increment the P
 br2|Load the PC with the memory word addressed by the byte loaded in br1.
 halt|Default state to trap failure to decode a valid instruction.
 
-### State transition diagram
+#### 2.5. State transition diagram
+
 ![State transition diagram](https://github.com/canh25xp/RISC-SPM/blob/main/assets/State_Transitions.drawio.png)
 
-### ASM chart
+#### 2.6. ASM chart
+
 ![ASM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/ASM.drawio.png)
 
-## **Memory Unit**
+### **3. Memory Unit**
+
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
 
-## **Testbench**
+## **III. Design verification**
+
 To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit. 
 
 # **Apendix**
