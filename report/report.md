@@ -12,7 +12,7 @@ RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of t
 
 The Overall Architecture of a simple RISC-SPM is shown below
 
-![Architecture RISC-SPM](/assets/RISC-SPM.png)
+![Architecture RISC-SPM](https://raw.githubusercontent.com/canh25xp/RISC-SPM/main/assets/RISC-SPM.png)
 
 Program instructions and data are stored in memory
 
@@ -158,11 +158,11 @@ halt|Default state to trap failure to decode a valid instruction.
 
 ### 2.5. State transition diagram
 
-![State transition diagram](/assets/State_Transitions.drawio.png)
+![State transition diagram](https://raw.githubusercontent.com/canh25xp/RISC-SPM/main/assets/State_Transitions.drawio.png)
 
 ### 2.6. ASM chart
 
-![ASM](/assets/ASM.drawio.png)
+![ASM](https://raw.githubusercontent.com/canh25xp/RISC-SPM/main/assets/ASM.drawio.png)
 
 ## **3. Memory Unit**
 
