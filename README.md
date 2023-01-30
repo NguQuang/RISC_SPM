@@ -61,14 +61,14 @@ NOT | Takes the bitwise Boolean complement of data_1
 
 ### **2. Control Unit**
 
-#### 2.1. Functions of the control unit :
+#### 2.1. Functions of the control unit
 
 1. Determine when to load registers
 2. Select the path of data through the multiplexers
 3. Determine when data should be written to memory
 4. Control the three-state busses in the architecture.
 
-#### 2.2. Control Signals :
+#### 2.2. Control Signals
 
 Control Signal|Action
 -|-
