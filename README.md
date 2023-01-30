@@ -32,7 +32,7 @@ The address register (Add_R) contains the address of the memory location that wi
 
 The Overall Architecture of a simple RISC-SPM is shown below
 
-![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM.png)
+![Architecture RISC-SPM](https://github.com/canh25xp/RISC-SPM/blob/main/assets/RISC-SPM_2.png)
 
 ## **Processing Unit**
 The processor includes *registers*, *buses*, *control lines*, and an *ALU* capable of performing arithmetic and logic operations on its operands depends on the opcode held in the instruction register.
