@@ -49,7 +49,7 @@ There are 2 multiplexers in the Processing Unit :
 
 An instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
 
-#### a. Arithmetic Logic Unit
+#### 1.1. Arithmetic Logic Unit
 For the purposes of this example, the ALU has two operand datapaths, data_1 and data_2, and its instruction set is limited to only 4 instructions, that is :
 
 Opcode|Action
