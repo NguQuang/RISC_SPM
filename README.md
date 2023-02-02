@@ -16,7 +16,7 @@ RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of t
 2. Controll Unit ( Controller )
 3. Memory Unit ( RAM )
 
-Program instructions and data are stored in memory
+Program instructions and data are stored in memory ( RAM ).
 
 Instructions are fetched from memory synchronously, decoded and executed to : 
 - Operate on data with ALU
@@ -173,6 +173,10 @@ halt|Default state to trap failure to decode a valid instruction.
 ### **3. Memory Unit**
 
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
+
+## **II. Design Hierarchy**
+
+![Design Hierarchy](/assets/Design_Hierarchy.drawio.png)
 
 ## **III. Design verification**
 
