@@ -1,15 +1,20 @@
-# **RISC-SPM**
 >A final project of the course "Digital Design using VHDL"
 
-## **Note**
+# **Note**
 Our design is a modified version from the reference book that can be found in documents folder. All the changes are listed in Apendix section at the end of this text.
 
-## **I. Overview**
+# **Overview**
 Reduced instruction-set computers (RISC) are designed to have a small set of instructions that execute in short clock cycles, with a small number of cycles per instruction. RISC machines are optimized to achieve efficient pipelining of their instruction streams. The machine also serves as a starting point for developing architectural variants and a more robust instruction set. Designers make high-level tradeoffs in selecting an architecture that serves an
 application. Once an architecture has been selected, a circuit that has sufficient performance (speed) must be synthesized. Hardware description languages (HDLs) play a key role in this process by modeling the system and serving as a descriptive medium
 that can be used by a synthesis tool.
 
-## **II. Hardware composition**
+Our design is a modified version from the reference book that can be found at the end of this text. Though the book explained pretty clear about this topic, I’m still going to discuss as manything as posible in my word. The book even contains a full verilog implementation code already, but as we “copy” and try to run it, a few bugs still found. So we have spent quite a lot of time to fix and optimize the code.
+
+# **Design Hierarchy**
+
+![Design Hierarchy](/assets/Design_Hierarchy.drawio.png)
+
+# **Hardware composition**
 
 RISC-SPM or Reduced Instruction Set Computer Store Program Machine consists of three functional units :
 1. Processing Unit ( Processor )
@@ -34,9 +39,9 @@ The address register (Add_R) contains the address of the memory location that wi
 
 The Overall Architecture of a simple RISC-SPM is shown below
 
-![Architecture RISC-SPM](/assets/RISC-SPM_2.png)
+![Architecture RISC-SPM](/assets/Architecture.drawio.png)
 
-### **1. Processing Unit**
+## **1. Processing Unit**
 The processor includes *registers*, *buses*, *control lines*, and an *ALU* capable of performing arithmetic and logic operations on its operands depends on the opcode held in the instruction register.
 
 There are 2 multiplexers in the Processing Unit : 
@@ -49,7 +54,7 @@ There are 2 multiplexers in the Processing Unit :
 
 An instruction can be fetched from memory, placed on Bus_2, and loaded into the instruction register. A word of data can be fetched from memory, and steered to a general-purpose register or to the operand register (Reg_Y) prior to an operation of the ALU. The result of an ALU operation can be placed on Bus_2, loaded into a register, and subsequently transferred to memory. A dedicated register (Reg_Z) holds a flag indicating that the result of an ALU operation is 0.
 
-#### 1.1. Arithmetic Logic Unit
+### Arithmetic Logic Unit
 For the purposes of this example, the ALU has two operand datapaths, data_1 and data_2, and its instruction set is limited to only 4 instructions, that is :
 
 Opcode|Action
@@ -59,16 +64,16 @@ SUB | Subtracts the datapaths to form data_1 - data_2
 AND | Takes the bitwise and of the datapaths data_1 & data_2
 NOT | Takes the bitwise Boolean complement of data_1
 
-### **2. Control Unit**
+## **2. Control Unit**
 
-#### 2.1. Functions of the control unit
+### Functions of the control unit
 
 1. Determine when to load registers
 2. Select the path of data through the multiplexers
 3. Determine when data should be written to memory
 4. Control the three-state busses in the architecture.
 
-#### 2.2. Control Signals
+### Control Signals
 
 Control Signal|Action
 -|-
@@ -86,7 +91,7 @@ Load_Reg_Y|Loads Bus_2 to the register Reg_Y
 Load_Reg_Z|Stores the zero Flag of ALU in register Reg_Z
 write|Loads Bus_1 into the memory
 
-#### 2.3. Instruction Set
+### Instruction Set
 
 A machine language program consists of a stored sequence of 8-bit words (bytes). The format of an instruction of RISC_SPM can be long or short, depending on the operation : 
 - Short instructions : requires 1 byte of memory to specifies 4-bit opcode, 2-bit source register address, a 2-bit destination register address.
@@ -134,7 +139,7 @@ BRZ|1000|xx|xx|PC <= memory[Add_R]
 HALT|1111|xx|xx|Halts execution until reset (Finish programm)
 
 
-#### 2.4. Controller States
+### Controller States
 Three phases of operation: fetch, decode, and execute.
 - Fetching : Retrieves an instruction from memory (2 clock cycles)
 - Decoding : Decodes the instruction, manipulates datapaths ,and loads registers (1 clock cycle)
@@ -162,23 +167,19 @@ br1|Load the Add_R with the second byte of a BR instruction, and increment the P
 br2|Load the PC with the memory word addressed by the byte loaded in br1.
 halt|Default state to trap failure to decode a valid instruction.
 
-#### 2.5. State transition diagram
+### State transition diagram
 
 ![State transition diagram](/assets/State_Transitions.drawio.png)
 
-#### 2.6. ASM chart
+### ASM chart
 
 ![ASM](/assets/ASM.drawio.png)
 
-### **3. Memory Unit**
+## **3. Memory Unit**
 
 For simplicity, the memory unit of the machine is modeled as an array of D flip-flops that form a **256 bytes** RAM.
 
-## **II. Design Hierarchy**
-
-![Design Hierarchy](/assets/Design_Hierarchy.drawio.png)
-
-## **III. Design verification**
+# **Design verification**
 
 To ensure the working of the machine, each module has it own testbench : Memory Unit, Control Unit, Register Unit, Arithmetic Logic Unit. 
 
