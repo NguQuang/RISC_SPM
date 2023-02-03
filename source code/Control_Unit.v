@@ -28,12 +28,13 @@ module Control_Unit(
 );
 
     reg [3:0] state, next_state;
-    reg err_flag; // error flag
+    reg err_flag; // error flag to debug
 
     wire [3:0] opcode = instruction[7:4];
     wire [1:0] dst = instruction [3:2]; //destination
     wire [1:0] src = instruction [1:0]; //source
 
+    //state register
     always @ (posedge clk or negedge rst) begin
         if(!rst)
             state <= `idle; // reset active low
@@ -41,6 +42,7 @@ module Control_Unit(
             state <= next_state;
     end
 
+    //next state logic
     always @ (state or opcode or src or dst or Zflag) begin
         Sel_Bus_1_Mux = 3'bx ; Sel_Bus_2_Mux = 2'bx;
         Load_R0 = 0; Load_R1 = 0; Load_R2 = 0; Load_R3 = 0; Load_Reg_Y = 0; Load_Reg_Z = 0;
@@ -51,16 +53,16 @@ module Control_Unit(
         case (state)
             `idle : next_state = `fet1;
             `fet1 :begin
+                next_state = `fet2;
                 Sel_Bus_1_Mux = 4; // Bus_1 = PC
                 Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
                 Load_Add_R = 1; 
-                next_state = `fet2;
             end
             `fet2 :begin
+                next_state = `dec;
                 Sel_Bus_2_Mux = 2; // Bus_2 = memory
                 Load_IR = 1;
                 Inc_PC = 1;
-                next_state = `dec;
             end
             `dec :begin
                 case(opcode)
