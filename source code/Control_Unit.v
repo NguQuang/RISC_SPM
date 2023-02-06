@@ -98,7 +98,7 @@ module Control_Unit(
                         Load_Add_R = 1;
                     end
                     `BRZ : begin
-                            next_state = `br1;
+                        next_state = `br1;
                         if (Zflag == 1) begin
                             Sel_Bus_1_Mux = 4; // Bus_1 = PC
                             Sel_Bus_2_Mux = 1; // Bus_2 = Bus_1
