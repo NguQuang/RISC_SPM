@@ -13,8 +13,10 @@ module Program_Counter_tb;
     reg [7:0] data_in;
     wire[7:0] count;
     Program_Counter Test_Counter(count, data_in, Load_PC, Inc_PC, clk, rst);
+    
     initial clk=1'b0;
     always #5 clk=~clk;
+    
     initial begin
                 rst=1;Load_PC=0;
         #5      data_in=8'b00000001;
@@ -27,6 +29,7 @@ module Program_Counter_tb;
         #5      data_in=8'b10000000; 
         #5      Load_PC=1;
         #10     Load_PC=0;
+        #5      $stop;
     end
 endmodule
 

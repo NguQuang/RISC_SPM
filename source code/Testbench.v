@@ -10,9 +10,12 @@ module RISC_SPM_tb;
     end
 
     initial begin
-        #0 rst=0;
             for(i=0;i<=255;i=i+1)
                 MCU.Ram.memory[i]=0;
+    end
+
+    initial begin
+        #0 rst=0;
         #10 rst=1;
     end
 
@@ -34,7 +37,7 @@ module RISC_SPM_tb;
         MCU.Ram.memory[128]=6;
         MCU.Ram.memory[129]=1;
         MCU.Ram.memory[130]=10;
-        MCU.Ram.memory[131]=5; 
+        MCU.Ram.memory[131]=5;
     end
 
     initial #2800 $stop;
