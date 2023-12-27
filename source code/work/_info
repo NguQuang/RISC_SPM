@@ -1,0 +1,467 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dE:/projects/verilog/riSC-SPM/source code
+vArithmetic_Logic_Unit
+Z0 !s110 1703649660
+!i10b 1
+!s100 UXJ8kI`WmBAFFiZe85_IM2
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IFURC[Pnb1DUH<75JPQ<ld0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dE:/Projects/Verilog/RISC-SPM/source code
+Z4 w1703250695
+Z5 8E:/Projects/Verilog/RISC-SPM/source code/Arithmetic_Logic_Unit.v
+Z6 FE:/Projects/Verilog/RISC-SPM/source code/Arithmetic_Logic_Unit.v
+!i122 0
+L0 10 18
+Z7 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z8 !s108 1703649660.000000
+Z9 !s107 E:/Projects/Verilog/RISC-SPM/source code/Arithmetic_Logic_Unit.v|
+Z10 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Arithmetic_Logic_Unit.v|
+!i113 1
+Z11 o-work work
+Z12 tCvgOpt 0
+n@arithmetic_@logic_@unit
+vArithmetic_Logic_Unit_tb
+R0
+!i10b 1
+!s100 eZT__k5b=gbW>:Q^X7m;h0
+R1
+I2=`Wbim5h9bXjORITT3aI0
+R2
+R3
+R4
+R5
+R6
+!i122 0
+L0 29 16
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R11
+R12
+n@arithmetic_@logic_@unit_tb
+vControl_Unit
+R0
+!i10b 1
+!s100 J>z<JGgKi4AULi3iFK5aT1
+R1
+IO[DBS;d1dzL_UVY8kC>Y_2
+R2
+R3
+w1675684559
+8E:/Projects/Verilog/RISC-SPM/source code/Control_Unit.v
+FE:/Projects/Verilog/RISC-SPM/source code/Control_Unit.v
+!i122 1
+L0 22 156
+R7
+r1
+!s85 0
+31
+R8
+!s107 E:/Projects/Verilog/RISC-SPM/source code/Control_Unit.v|
+!s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Control_Unit.v|
+!i113 1
+R11
+R12
+n@control_@unit
+vD_ff
+R0
+!i10b 1
+!s100 56fX?SKP>X4]A4R0PKgBV1
+R1
+IKg^VCJ6jZYYiRonm^GXeM2
+R2
+R3
+Z13 w1671690715
+Z14 8E:/Projects/Verilog/RISC-SPM/source code/D_ff.v
+Z15 FE:/Projects/Verilog/RISC-SPM/source code/D_ff.v
+!i122 2
+Z16 L0 1 7
+R7
+r1
+!s85 0
+31
+R8
+Z17 !s107 E:/Projects/Verilog/RISC-SPM/source code/D_ff.v|
+Z18 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/D_ff.v|
+!i113 1
+R11
+R12
+n@d_ff
+vD_ff_tb
+R0
+!i10b 1
+!s100 [j[6T^l0>Y^ZFR7l>I0<L2
+R1
+Inc:GWRd>Z6ZJ`2hD0S6TE3
+R2
+R3
+R13
+R14
+R15
+!i122 2
+L0 9 20
+R7
+r1
+!s85 0
+31
+R8
+R17
+R18
+!i113 1
+R11
+R12
+n@d_ff_tb
+vMemory_Unit
+R0
+!i10b 1
+!s100 GMJC<mCz_BS;aCiJcbBoR3
+R1
+IbM_H?7mZVMRh78zBG]cmR0
+R2
+R3
+Z19 w1675853782
+Z20 8E:/Projects/Verilog/RISC-SPM/source code/Memory_Unit.v
+Z21 FE:/Projects/Verilog/RISC-SPM/source code/Memory_Unit.v
+!i122 3
+L0 1 14
+R7
+r1
+!s85 0
+31
+R8
+Z22 !s107 E:/Projects/Verilog/RISC-SPM/source code/Memory_Unit.v|
+Z23 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Memory_Unit.v|
+!i113 1
+R11
+R12
+n@memory_@unit
+vMemory_Unit_tb
+R0
+!i10b 1
+!s100 6796Fm>8_NV9l=e>1N<8`2
+R1
+IL[@RfX_dzAgIKGQFKB6WQ3
+R2
+R3
+R19
+R20
+R21
+!i122 3
+L0 16 53
+R7
+r1
+!s85 0
+31
+R8
+R22
+R23
+!i113 1
+R11
+R12
+n@memory_@unit_tb
+vMux_3_1
+R0
+!i10b 1
+!s100 zcnMJRhn:LB5>dT9FBFF<2
+R1
+I@Ak<M=@eC@;QL2CC^TZWH2
+R2
+R3
+Z24 w1671695471
+Z25 8E:/Projects/Verilog/RISC-SPM/source code/Mux_3_1.v
+Z26 FE:/Projects/Verilog/RISC-SPM/source code/Mux_3_1.v
+!i122 4
+Z27 L0 1 9
+R7
+r1
+!s85 0
+31
+R8
+Z28 !s107 E:/Projects/Verilog/RISC-SPM/source code/Mux_3_1.v|
+Z29 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Mux_3_1.v|
+!i113 1
+R11
+R12
+n@mux_3_1
+vMux_3_1_tb
+R0
+!i10b 1
+!s100 zF1P4A8;?5l^A2=_?XalC0
+R1
+IEEBkhb`=zX5RhaagDO6lJ0
+R2
+R3
+R24
+R25
+R26
+!i122 4
+L0 11 13
+R7
+r1
+!s85 0
+31
+R8
+R28
+R29
+!i113 1
+R11
+R12
+n@mux_3_1_tb
+vMux_5_1
+R0
+!i10b 1
+!s100 mj8`HOS[N`X534<WQ>dUa1
+R1
+I9;2e^41jgIn1KCW<K0gBi3
+R2
+R3
+Z30 w1671693372
+Z31 8E:/Projects/Verilog/RISC-SPM/source code/Mux_5_1.v
+Z32 FE:/Projects/Verilog/RISC-SPM/source code/Mux_5_1.v
+!i122 5
+L0 1 11
+R7
+r1
+!s85 0
+31
+R8
+Z33 !s107 E:/Projects/Verilog/RISC-SPM/source code/Mux_5_1.v|
+Z34 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Mux_5_1.v|
+!i113 1
+R11
+R12
+n@mux_5_1
+vMux_5_1_tb
+R0
+!i10b 1
+!s100 alR5S1eUiN9K^cYN]omoh2
+R1
+IW[;B;J_G47c1`fLYFSPS_3
+R2
+R3
+R30
+R31
+R32
+!i122 5
+L0 13 14
+R7
+r1
+!s85 0
+31
+R8
+R33
+R34
+!i113 1
+R11
+R12
+n@mux_5_1_tb
+vProcessing_Unit
+Z35 !s110 1703649661
+!i10b 1
+!s100 YGmGS:nGnQO7hcL<DP1E32
+R1
+Ik^Y`45cz?:;ZHOIRoi36J1
+R2
+R3
+w1674490857
+8E:/Projects/Verilog/RISC-SPM/source code/Processing_Unit.v
+FE:/Projects/Verilog/RISC-SPM/source code/Processing_Unit.v
+!i122 6
+Z36 L0 1 29
+R7
+r1
+!s85 0
+31
+Z37 !s108 1703649661.000000
+!s107 E:/Projects/Verilog/RISC-SPM/source code/Processing_Unit.v|
+!s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Processing_Unit.v|
+!i113 1
+R11
+R12
+n@processing_@unit
+vProgram_Counter
+R35
+!i10b 1
+!s100 8d=CV8o`kE@KmBFlF`l=g3
+R1
+IFdYnW]cQVW>WXkWbXekkP0
+R2
+R3
+Z38 w1675864313
+Z39 8E:/Projects/Verilog/RISC-SPM/source code/Program_Counter.v
+Z40 FE:/Projects/Verilog/RISC-SPM/source code/Program_Counter.v
+!i122 7
+R27
+R7
+r1
+!s85 0
+31
+R37
+Z41 !s107 E:/Projects/Verilog/RISC-SPM/source code/Program_Counter.v|
+Z42 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Program_Counter.v|
+!i113 1
+R11
+R12
+n@program_@counter
+vProgram_Counter_tb
+R35
+!i10b 1
+!s100 @EaAIQ2W8ZFM1PV1];Zze1
+R1
+I6OWDU3c[zOTIF5Bf^B0nN0
+R2
+R3
+R38
+R39
+R40
+!i122 7
+L0 11 24
+R7
+r1
+!s85 0
+31
+R37
+R41
+R42
+!i113 1
+R11
+R12
+n@program_@counter_tb
+vRegister_Unit
+R35
+!i10b 1
+!s100 o]7AgkFm:LV]bm;_cU7_K2
+R1
+IzSEnhSeo_bJ>`GcaaUe4f2
+R2
+R3
+Z43 w1675865098
+Z44 8E:/Projects/Verilog/RISC-SPM/source code/Register_Unit.v
+Z45 FE:/Projects/Verilog/RISC-SPM/source code/Register_Unit.v
+!i122 8
+R16
+R7
+r1
+!s85 0
+31
+R37
+Z46 !s107 E:/Projects/Verilog/RISC-SPM/source code/Register_Unit.v|
+Z47 !s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Register_Unit.v|
+!i113 1
+R11
+R12
+n@register_@unit
+vRegister_Unit_tb
+R35
+!i10b 1
+!s100 2IzQcL[P[5CIPTgAYK9>E2
+R1
+IGIH8Ed=`k7U?e3g8fYFPg1
+R2
+R3
+R43
+R44
+R45
+!i122 8
+L0 9 18
+R7
+r1
+!s85 0
+31
+R37
+R46
+R47
+!i113 1
+R11
+R12
+n@register_@unit_tb
+vRISC_SPM
+R35
+!i10b 1
+!s100 Q>JGiDNH5iXPCNZOkaz3I2
+R1
+IRIbWemHQATXjgkmALN@h=2
+R2
+R3
+w1675102483
+8E:/Projects/Verilog/RISC-SPM/source code/RISC_SPM.v
+FE:/Projects/Verilog/RISC-SPM/source code/RISC_SPM.v
+!i122 9
+R36
+R7
+r1
+!s85 0
+31
+R37
+!s107 E:/Projects/Verilog/RISC-SPM/source code/RISC_SPM.v|
+!s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/RISC_SPM.v|
+!i113 1
+R11
+R12
+n@r@i@s@c_@s@p@m
+vRISC_SPM_tb
+R35
+!i10b 1
+!s100 WIbHFL_^1@TSbiZ?73OUn1
+R1
+I44zfV^a91S27R`V_iP<mH0
+R2
+R3
+w1703649461
+8E:/Projects/Verilog/RISC-SPM/source code/Testbench.v
+FE:/Projects/Verilog/RISC-SPM/source code/Testbench.v
+!i122 10
+L0 1 45
+R7
+r1
+!s85 0
+31
+R37
+!s107 E:/Projects/Verilog/RISC-SPM/source code/Testbench.v|
+!s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Testbench.v|
+!i113 1
+R11
+R12
+n@r@i@s@c_@s@p@m_tb
+vRISC_SPM_tb1
+!s110 1703649662
+!i10b 1
+!s100 BdkOCk[V70cU<ehWcV>C:3
+R1
+IQRGDf?0Rc7gBl6UCXWb7P1
+R2
+R3
+w1674927818
+8E:/Projects/Verilog/RISC-SPM/source code/Testbench_1.v
+FE:/Projects/Verilog/RISC-SPM/source code/Testbench_1.v
+!i122 11
+L0 1 40
+R7
+r1
+!s85 0
+31
+R37
+!s107 E:/Projects/Verilog/RISC-SPM/source code/Testbench_1.v|
+!s90 -reportprogress|300|-work|work|E:/Projects/Verilog/RISC-SPM/source code/Testbench_1.v|
+!i113 1
+R11
+R12
+n@r@i@s@c_@s@p@m_tb1
